@@ -8,13 +8,34 @@ mongodb_client.connect('mongodb://localhost:27017/todoApp',(err,db)=>{
     if(err){
         return console.log(err.message);
     }
-    db.collection('todos').find({priority: 'high'}).toArray().then((res)=>{
-        console.log(`${res}\ntotal number of records:${res}`);
+    let f=1;
+        db.collection('todos').updateMany({task: "high"}, {
+            $rename: {
+                task: "priority"
+            }
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err.message);
+        });
+
+    console.log("gg");
+    db.close();
+});
+
+
+
+//delete
+/*mongodb_client.connect('mongodb://localhost:27017/todoApp',(err,db)=>{
+    if(err){
+        return console.log(err.message);
+    }
+    db.collection('todos').findOneAndDelete({priority:"gg"}).then((res)=>{
         console.log(res);
     });
     console.log("");
     db.close();
-});
+});*/
 
 /*mongodb_client.connectAsync('mongodb://localhost:27017/todoApp').then((db)=>{
    console.log("db connected!");
