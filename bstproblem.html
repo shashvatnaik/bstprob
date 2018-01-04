@@ -37,9 +37,8 @@
     };
     console.log(t);
     var loc=[];
-    let queries = [3];
+    let queries = [5];
     let searchBST = (t,q)=>{
-
         if(!t.value || t.value==undefined){console.log('not found');}
         else if(t.value == q){
             //console.log('found');
@@ -50,26 +49,49 @@
         else if(t.value<q){
             loc.push('right');
             searchBST(t.right,q);
-
             //console.log('right');
         }
         else if(t.value>q){
             loc.push('left');
             searchBST(t.left,q);
             //console.log('left');
-
         }
-
-
-
-
     }
-
+    let del = (q)=>{
+        let l=t;
+        console.log(loc);
+        for(let xx in loc){
+            let temp;
+            temp=loc[xx];
+            l=l[temp];
+            console.log(l);
+        }
+        if(l.left==null && l.right==null){
+            l.value=null;
+        }
+        else if(l.left==null && l.right!=null){
+            l.value=l.right.value;
+            l.right=l.right.right;
+            l.left=l.right.left;
+        }else if(l.right==null && l.left!=null){
+            l.value=l.left.value;
+            l.left=l.left.left;
+            l.right=l.left.right;
+        }
+        else{
+            let min=l.left.right.value>l.left.left.value?l.left.right:l.left.left;
+            l.value=min.value;
+            del();
+            loc=[];
+            console.log(`loc is ${loc}`);
+            
+        }
+    }
     let deleteFromBST = (t,queries)=> {
         for(let x in queries){
             searchBST(t,queries[x]);
-            console.log(loc);
-
+            //console.log(loc);
+            del(queries[x]);
         }
     }
     deleteFromBST(t,queries);
