@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bst</title>
+</head>
+<body>
+<script>
+    let t  = {
+        "value": 5,
+        "left": {
+            "value": 2,
+            "left": {
+                "value": 1,
+                "left": null,
+                "right": null
+            },
+            "right": {
+                "value": 3,
+                "left": null,
+                "right": null
+            }
+        },
+        "right": {
+            "value": 6,
+            "left": null,
+            "right": {
+                "value": 8,
+                "left": {
+                    "value": 7,
+                    "left": null,
+                    "right": null
+                },
+                "right": null
+            }
+        }
+    };
+    console.log(t);
+    var loc=[];
+    let queries = [3];
+    let searchBST = (t,q)=>{
+
+        if(!t.value || t.value==undefined){console.log('not found');}
+        else if(t.value == q){
+            //console.log('found');
+           // console.log(q);
+            //console.log(loc);
+            return loc;
+        }
+        else if(t.value<q){
+            loc.push('right');
+            searchBST(t.right,q);
+
+            //console.log('right');
+        }
+        else if(t.value>q){
+            loc.push('left');
+            searchBST(t.left,q);
+            //console.log('left');
+
+        }
+
+
+
+
+    }
+
+    let deleteFromBST = (t,queries)=> {
+        for(let x in queries){
+            searchBST(t,queries[x]);
+            console.log(loc);
+
+        }
+    }
+    deleteFromBST(t,queries);
+    </script>
+</body>
+</html>
